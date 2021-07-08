@@ -4,7 +4,7 @@ API для социальной сети YaTube
 
 Установка
 Клонируем репозиторий:
-https://github.com/imersir/api_final_yatube.git
+[https://github.com/imersir/api_final_yatube.git](https://github.com/imersir/api_final_yatube.git)
 
 Создаем виртуальное окружение:
 $ python -m venv venv
