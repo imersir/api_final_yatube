@@ -10,7 +10,6 @@ from .permissions import IsAuthorOrReadOnly
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
 
-
 # from rest_framework.viewsets import GenericViewSet
 # from rest_framework.mixins import CreateModelMixin, ListModelMixin
 
