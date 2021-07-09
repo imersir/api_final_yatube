@@ -11,6 +11,21 @@ from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
 
 
+# from rest_framework.viewsets import GenericViewSet
+# from rest_framework.mixins import CreateModelMixin, ListModelMixin
+
+# class MethodViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+#     pass
+#
+# @permission_classes([IsAuthorOrReadOnly, IsAuthenticatedOrReadOnly])
+# class GroupViewSet(MethodViewSet):
+#     ...
+#
+# @permission_classes([IsAuthenticated])
+# class FollowViewSet(MethodViewSet):
+#     ...
+
+
 @permission_classes([IsAuthorOrReadOnly, IsAuthenticatedOrReadOnly])
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -42,6 +57,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    http_method_names = ['get', 'post']
 
 
 @permission_classes([IsAuthenticated])
@@ -49,6 +65,7 @@ class FollowViewSet(viewsets.ModelViewSet):
     serializer_class = FollowSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['user__username', 'following__username']
+    http_method_names = ['get', 'post']
 
     def get_queryset(self):
         return self.request.user.following.all()

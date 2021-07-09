@@ -27,7 +27,7 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, related_name='posts'
     )
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE,
+        Group, on_delete=models.SET_NULL,
         related_name='posts', blank=True, null=True, verbose_name='Группа'
     )
 
@@ -74,7 +74,14 @@ class Follow(models.Model):
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
-        unique_together = ('user', 'following',)
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'following'],
+                name='unique_user_following'
+            )
+        ]
+        # unique_together = ('user', 'following',)
+        # - оказывается, "unique_together" - считается почти "устаревшим".
 
     def __str__(self):
         return f'{self.user} подписан на {self.author}'
